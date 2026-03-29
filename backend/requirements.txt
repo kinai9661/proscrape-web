@@ -1,0 +1,11 @@
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+cssutils>=2.10.0
+fake-useragent>=1.4.0
+tqdm>=4.66.0
+validators>=0.22.0
+w3lib>=2.1.0
+chardet>=5.2.0
+lxml>=4.9.0
+flask>=3.0.0
+flask-cors>=4.0.0

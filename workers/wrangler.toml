@@ -1,0 +1,10 @@
+name = "proscrape-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+[[kv_namespaces]]
+binding = "TASK_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+SCRAPER_ORIGIN = "https://your-python-scraper.onrender.com"
