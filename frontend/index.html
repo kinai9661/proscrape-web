@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProScrape - 網站克隆工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">🌐</span>
+                <div>
+                    <div>ProScrape</div>
+                    <div class="logo-sub">Web Cloner</div>
+                </div>
+            </div>
+            <div class="stepper">
+                <div class="step active">
+                    <span class="step-num">1</span>
+                    <span>設定</span>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <span>執行</span>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <span>結果</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- 配置面板 -->
+            <div id="configPanel" class="panel active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>克隆設定</h2>
+                        <p>輸入目標網址並配置克隆選項</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="cloneForm">
+                            <div class="field">
+                                <label class="field-label">目標網址 *</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon">🔗</span>
+                                    <input type="url" id="url" placeholder="https://example.com" required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="section-label">快速模式</label>
+                                <div class="mode-group">
+                                    <button type="button" class="mode-btn selected" data-mode="full">
+                                        <span class="mode-icon">🔍</span>
+                                        <span class="mode-name">完整克隆</span>
+                                        <span class="mode-desc">深度 15 / 10000 頁</span>
+                                    </button>
+                                    <button type="button" class="mode-btn" data-mode="quick">
+                                        <span class="mode-icon">⚡</span>
+                                        <span class="mode-name">快速克隆</span>
+                                        <span class="mode-desc">深度 5 / 200 頁</span>
+                                    </button>
+                                    <button type="button" class="mode-btn" data-mode="custom">
+                                        <span class="mode-icon">⚙️</span>
+                                        <span class="mode-name">自訂</span>
+                                        <span class="mode-desc">手動設定</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="section-label">進階設定</label>
+                                <div class="sliders-grid">
+                                    <div class="slider-block">
+                                        <div class="slider-row">
+                                            <span class="slider-name">爬取深度</span>
+                                            <span class="slider-val" id="depthVal">15</span>
+                                        </div>
+                                        <input type="range" id="depth" min="1" max="30" value="15">
+                                    </div>
+                                    <div class="slider-block">
+                                        <div class="slider-row">
+                                            <span class="slider-name">最多頁面</span>
+                                            <span class="slider-val" id="maxPagesVal">10000</span>
+                                        </div>
+                                        <input type="range" id="maxPages" min="10" max="10000" value="10000" step="100">
+                                    </div>
+                                    <div class="slider-block">
+                                        <div class="slider-row">
+                                            <span class="slider-name">並發請求</span>
+                                            <span class="slider-val" id="concurrentVal">25</span>
+                                        </div>
+                                        <input type="range" id="concurrent" min="5" max="100" value="25" step="5">
+                                    </div>
+                                    <div class="slider-block">
+                                        <div class="slider-row">
+                                            <span class="slider-name">超時(秒)</span>
+                                            <span class="slider-val" id="timeoutVal">30</span>
+                                        </div>
+                                        <input type="range" id="timeout" min="10" max="120" value="30" step="10">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="section-label">功能選項</label>
+                                <div class="checkboxes-grid">
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="downloadMedia" checked>
+                                        <span>📷 下載媒體</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="downloadFonts" checked>
+                                        <span>🔤 下載字型</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="downloadDocs" checked>
+                                        <span>📄 下載文件</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="rewriteLinks" checked>
+                                        <span>🔄 改寫連結</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="captureApi" checked>
+                                        <span>🔌 掃描 API</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="cloneHidden" checked>
+                                        <span>🔒 隱藏檔案</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="downloadSource" checked>
+                                        <span>💻 原始碼</span>
+                                    </label>
+                                    <label class="cb-item">
+                                        <input type="checkbox" id="aggressiveScan" checked>
+                                        <span>🚀 積極掃描</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn">🚀 開始克隆</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 進度面板 -->
+            <div id="progressPanel" class="panel">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>克隆進度</h2>
+                        <p>正在克隆...</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress-section">
+                            <div class="prog-header">
+                                <span class="prog-label">整體進度</span>
+                                <span class="prog-pct" id="progressPct">0%</span>
+                            </div>
+                            <div class="prog-bar">
+                                <div class="prog-fill" id="progressFill"></div>
+                            </div>
+                            <div class="prog-status" id="progressStatus">初始化中...</div>
+                        </div>
+
+                        <div class="stats-cards">
+                            <div class="stat-card">
+                                <span class="stat-icon">📄</span>
+                                <div class="stat-info">
+                                    <div class="stat-val" id="statPages">0</div>
+                                    <div class="stat-lbl">已下載頁面</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-icon">🖼️</span>
+                                <div class="stat-info">
+                                    <div class="stat-val" id="statAssets">0</div>
+                                    <div class="stat-lbl">已下載資源</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-icon">🔒</span>
+                                <div class="stat-info">
+                                    <div class="stat-val" id="statHidden">0</div>
+                                    <div class="stat-lbl">隱藏檔案</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-icon">⚠️</span>
+                                <div class="stat-info">
+                                    <div class="stat-val" id="statErrors">0</div>
+                                    <div class="stat-lbl">錯誤數</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="error-box" id="errorBox" style="display: none;">
+                            <div class="error-box-title">⚠️ 最近錯誤</div>
+                            <div class="error-list" id="errorList"></div>
+                        </div>
+
+                        <button id="cancelBtn" class="cancel-btn">取消克隆</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 結果面板 -->
+            <div id="resultPanel" class="panel">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="result-hero">
+                            <div class="result-icon-big">✅</div>
+                            <h2>克隆完成！</h2>
+                            <p id="resTime"></p>
+                        </div>
+
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <span class="result-item-label">📄 下載頁面</span>
+                                <span class="result-item-val" id="resPages">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">🖼️ 下載資源</span>
+                                <span class="result-item-val" id="resAssets">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">🔒 隱藏檔案</span>
+                                <span class="result-item-val" id="resHidden">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">🔌 API 端點</span>
+                                <span class="result-item-val" id="resApi">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">📝 找到表單</span>
+                                <span class="result-item-val" id="resForms">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">📦 總大小</span>
+                                <span class="result-item-val" id="resSize">0 MB</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-item-label">⏱️ 耗費時間</span>
+                                <span class="result-item-val" id="resDuration">0 秒</span>
+                            </div>
+                        </div>
+
+                        <div class="download-area">
+                            <p>📥 下載克隆結果索引</p>
+                            <a href="#" class="download-link" id="downloadLink" style="display: none;">
+                                📥 下載 JSON 索引
+                            </a>
+                        </div>
+
+                        <div class="action-row">
+                            <button id="newCloneBtn" class="submit-btn">🔄 新建克隆</button>
+                            <button id="historyBtn" class="btn-outline">📋 查看歷史</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 歷史面板 -->
+            <div id="historyPanel" class="panel">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>克隆歷史</h2>
+                        <p>過去的克隆任務記錄</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="historyList" style="font-size: 14px; line-height: 1.8;">
+                            📭 尚無克隆記錄
+                        </div>
+                        <button id="backBtn" class="back-btn">← 返回</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            ProScrape &mdash; 進階網站克隆工具 &nbsp;|&nbsp; 部署於 Cloudflare Pages
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

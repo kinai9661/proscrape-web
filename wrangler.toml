@@ -1,0 +1,5 @@
+name = "proscrape-web"
+pages_build_output_dir = "frontend"
+
+[build]
+command = "echo 'Static site - no build needed'"
